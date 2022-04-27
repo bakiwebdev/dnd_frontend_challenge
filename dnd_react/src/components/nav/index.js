@@ -19,7 +19,6 @@ const Nav = () => {
   ];
   // check current route
   const currentRoute = window.location.pathname;
-  console.log(currentRoute);
 
   const getNavButtons = () => {
     return buttonData.map((button, index) => {
