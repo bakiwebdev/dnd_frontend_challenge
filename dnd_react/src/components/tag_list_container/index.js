@@ -1,25 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { TagContext } from "../../provider/tag";
 import Modal from "../modal";
 import Tag from "../tag";
+import { Draggable } from "react-beautiful-dnd";
 
 const TagListContainer = () => {
+  const { issueTag } = useContext(TagContext);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentTag, setCurrentTag] = useState({});
-  const [tags, setTags] = useState([
-    {
-      marked: true,
-      title: "bug",
-    },
-    {
-      marked: false,
-      title: "feature",
-    },
-    {
-      marked: false,
-      title: "enhancement",
-    },
-  ]);
+  const [tags, setTags] = useState([]);
+  useEffect(() => {
+    setTags(issueTag);
+  }, [issueTag]);
   const handleDelete = (index) => {
     const newTags = [...tags];
     newTags.splice(index, 1);
@@ -36,15 +29,25 @@ const TagListContainer = () => {
   };
   return (
     <div className="w-full h-80 overflow-x-scroll no-scrollbar">
-      {tags.map((tag, index) => (
-        <Tag
-          key={index}
-          marked={tag.marked}
-          title={tag.title}
-          onExpand={() => handleExpand(index)}
-          onDelete={() => handleDelete(index)}
-          onEdit={() => handleEdit(index)}
-        />
+      { tags && tags.map((tag, index) => (
+        <Draggable draggableId={tag.title} index={index} key={tag.title}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
+              <Tag
+                key={index}
+                marked={tag.marked}
+                title={tag.title}
+                onExpand={() => handleExpand(index)}
+                onDelete={() => handleDelete(index)}
+                onEdit={() => handleEdit(index)}
+              />
+            </div>
+          )}
+        </Draggable>
       ))}
       {/* when expand button clicked */}
       {isExpanded && (
