@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { RiDeleteBin6Line, RiEditLine } from "react-icons/ri";
 import { BiExpandAlt } from "react-icons/bi";
+
 const Tag = ({ marked, title, onDelete, onEdit, onExpand }) => {
   const [isChecked, setIsChecked] = useState(marked);
+
   return (
     <div className="my-2 flex justify-between items-center">
       {/* checkbox with tag name */}

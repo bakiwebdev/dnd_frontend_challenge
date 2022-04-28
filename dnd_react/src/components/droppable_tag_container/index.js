@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Droppable } from "react-beautiful-dnd";
+import React, { useState, useEffect, useContext } from "react";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import Tag from "../tag";
+import { TagContext } from "../../provider/tag";
 
 const DroppableTagContainer = () => {
+  const { completedTag } = useContext(TagContext);
   const [tags, setTags] = useState([]);
+  useEffect(() => {
+    setTags(completedTag);
+  }, [completedTag]);
 
   return (
     <div className="ml-5 border border-gray-300 h-auto rounded-md p-2 flex flex-col flex-1">
       <p className="text-lg text-gray-500 capitalize mb-1">
-        Droppable Container
+        Completed tags
       </p>
       {/* droppable area */}
       <Droppable droppableId="droppable">
@@ -20,7 +25,21 @@ const DroppableTagContainer = () => {
           >
             {tags &&
               tags.map((tag, index) => (
-                <Tag key={index} marked={tag.marked} title={tag.title} />
+                <Draggable
+                  draggableId={tag.title}
+                  index={index}
+                  key={tag.title}
+                >
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Tag marked={tag.marked} title={tag.title} />
+                    </div>
+                  )}
+                </Draggable>
               ))}
             {provided.placeholder}
           </div>

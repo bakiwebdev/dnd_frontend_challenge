@@ -20,7 +20,7 @@ const TestPage = () => {
       name: "tag4",
     },
   ];
-  const [tagList, setTagList] = useState(tagData);
+  const [tagList ] = useState(tagData);
 
   const onDragEnd = (result) => {
     console.log("Drag end", result);

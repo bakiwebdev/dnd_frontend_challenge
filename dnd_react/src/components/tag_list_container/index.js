@@ -5,7 +5,7 @@ import Tag from "../tag";
 import { Draggable } from "react-beautiful-dnd";
 
 const TagListContainer = () => {
-  const { issueTag } = useContext(TagContext);
+  const { issueTag, setIssueTag } = useContext(TagContext);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentTag, setCurrentTag] = useState({});
@@ -16,8 +16,7 @@ const TagListContainer = () => {
   const handleDelete = (index) => {
     const newTags = [...tags];
     newTags.splice(index, 1);
-    console.log(newTags);
-    setTags(newTags);
+    setIssueTag(newTags);
   };
   const handleEdit = (index) => {
     setIsEditing(true);
