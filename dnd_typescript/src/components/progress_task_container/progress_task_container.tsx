@@ -5,6 +5,7 @@ import Todo from "../todo/todo";
 import { TodoContext } from "../../provider/todo";
 import Button from "../button/button";
 import Modal from "../modal";
+import { IoMdClose } from "react-icons/io";
 
 const ProgressTaskContainer = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,12 +31,17 @@ const ProgressTaskContainer = () => {
       };
       setProgressTodo([...progressTodo, newTodoItem]);
       setNewTodo("");
+      setShowModal(false);
+    } else {
+      setShowModal(false);
+      alert("Please enter a todo");
     }
-    setShowModal(false);
   };
   return (
     <div className="border-[1px] border-gray-300 h-fit md:w-96 rounded-md p-2 flex flex-col">
-        <p className="text-lg text-gray-500 capitalize mb-1 pb-5 border-b border-gray-300">On progress</p>
+      <p className="text-lg text-gray-500 capitalize mb-1 pb-5 border-b border-gray-300">
+        In progress
+      </p>
       <DroppableArea id="progressTodoList">
         {progressTodo.length === 0 && (
           <div className="flex h-full items-center justify-center">
@@ -57,19 +63,25 @@ const ProgressTaskContainer = () => {
       {showModal && (
         <Modal>
           <div className="w-96 p-5 bg-white border-2 border-secondary rounded-md h-auto">
-            <h1 className="text-lg text-gray-800">Add todo's</h1>
+            <div className="flex justify-between items-center">
+              <h1 className="text-lg text-gray-800">Add todo's</h1>
+              <button onClick={() => setShowModal(false)}>
+                <IoMdClose />
+              </button>
+            </div>
             <input
               className="w-full p-2 border-2 border-secondary rounded-md mt-4"
               type="text"
               value={newTodo}
               onChange={(e) => setNewTodo(e.target.value)}
             />
-            <div
-              className="py-2 cursor-pointer flex justify-center items-center text-lg text-white bg-blue-400 rounded-md mt-4"
+            <button
+              className="w-full py-2 cursor-pointer flex justify-center items-center text-lg text-white bg-blue-400 rounded-md mt-4"
               onClick={() => handleModalClose()}
+              type="submit"
             >
-              Add todo
-            </div>
+              Submit
+            </button>
           </div>
         </Modal>
       )}
