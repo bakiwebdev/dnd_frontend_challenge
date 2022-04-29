@@ -7,6 +7,8 @@
 
 ## dnd with react js => source code found in dnd_react directory
 
+design idea from https://dribbble.com/shots/14763346-Tags-management
+
 ![image](https://user-images.githubusercontent.com/57604289/165976082-ec43b6d2-5194-4214-a595-e6a984848af7.png)
 ![image](https://user-images.githubusercontent.com/57604289/165976169-18746a4a-3e2f-47a5-bec0-64c2615c9113.png)
 ![image](https://user-images.githubusercontent.com/57604289/165976235-ffb7aae9-d0d7-44f5-b021-193e137a14fb.png)
